@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'users',
     'bookings',
+    'rooms',
 
 ]
 
@@ -77,7 +78,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB', 'hotel_db'),
         'USER': os.getenv('POSTGRES_USER', 'db_user'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'db_password'),
-        'HOST': os.getenv('localhost'),
+        'HOST': os.getenv('POSTGRES_HOST', '127.0.0.1'),
         'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
 }
