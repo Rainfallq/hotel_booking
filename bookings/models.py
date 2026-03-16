@@ -24,7 +24,7 @@ class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
-        # Та самая логика, которую мы писали в сериализаторе
+        # Для админки, чтобы не создавать не правильные букинги
         overlapping = Booking.objects.filter(
             room=self.room,
             status=Booking.Status.ACTIVE,
