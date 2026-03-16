@@ -11,7 +11,6 @@ docker-compose up --build
 ```
 
 После запуска:
-- API: http://localhost:8000/api/
 - Swagger-документация: http://localhost:8000/api/docs/
 - Админ-панель: http://localhost:8000/admin/
 
