@@ -42,11 +42,6 @@ python manage.py runserver
 
 ---
 
-## Тесты
-
-```bash
-pytest
-```
 
 ## Линтер и форматирование
 
