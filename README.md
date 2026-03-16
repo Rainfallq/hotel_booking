@@ -61,7 +61,7 @@ black .
 | POST | `/api/auth/register/` | Регистрация |
 | POST | `/api/auth/login/` | Получить JWT токены |
 | POST | `/api/auth/refresh/` | Обновить access-токен |
-| GET | `/api/auth/me/` | Текущий пользователь |
+| GET | `/api/auth/profile/` | Текущий пользователь |
 
 ### Комнаты (доступны без авторизации)
 
