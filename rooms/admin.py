@@ -8,4 +8,3 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = ("name", "price_per_day", "capacity")
     search_fields = ("name",)
     ordering = ("name",)
-    

@@ -20,7 +20,9 @@ class Booking(models.Model):
     )
     check_in = models.DateField()
     check_out = models.DateField()
-    status = models.CharField(max_length=20, choices=Status.choices, default=Status.ACTIVE)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.ACTIVE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
@@ -33,7 +35,7 @@ class Booking(models.Model):
         )
         if self.pk:
             overlapping = overlapping.exclude(pk=self.pk)
-            
+
         if overlapping.exists():
             raise ValidationError("Эта комната уже занята на выбранные даты.")
 
@@ -42,6 +44,3 @@ class Booking(models.Model):
 
     def __str__(self) -> str:
         return f"Booking #{self.pk} - {self.room} ({self.check_in} -> {self.check_out})"
-   
-
-

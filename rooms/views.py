@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
@@ -23,16 +22,20 @@ class RoomListView(generics.ListAPIView):
     @extend_schema(
         parameters=[
             OpenApiParameter("check_in", str, description="Check-in date (YYYY-MM-DD)"),
-            OpenApiParameter("check_out", str, description="Check-out date (YYYY-MM-DD)"),
+            OpenApiParameter(
+                "check_out", str, description="Check-out date (YYYY-MM-DD)"
+            ),
             OpenApiParameter("min_price", float, description="Minimum price per day"),
             OpenApiParameter("max_price", float, description="Maximum price per day"),
             OpenApiParameter("capacity", int, description="Exact capacity"),
             OpenApiParameter("min_capacity", int, description="Minimum capacity"),
-            OpenApiParameter("ordering", str, 
-                             description="Order by: price_per_day, capacity (use - for descending)",),
+            OpenApiParameter(
+                "ordering",
+                str,
+                description="Order by: price_per_day, capacity (use - for descending)",
+            ),
         ]
     )
-
     def get_queryset(self) -> QuerySet:
         queryset = Room.objects.all()
         check_in = self.request.query_params.get("check_in")
@@ -44,10 +47,10 @@ class RoomListView(generics.ListAPIView):
                 check_out_date = date.fromisoformat("check_out")
             except ValueError:
                 return queryset
-            
+
             booker_room_ids = Booking.objects.filter(
                 status=Booking.Status.ACTIVE,
-                check_in__lt=check_out_date, 
+                check_in__lt=check_out_date,
                 check_out__gt=check_in_date,
             ).values_list("room_id", flat=True)
 
