@@ -20,7 +20,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         except DjangoValidationError as e:
             raise serializers.ValidationError(list(e.messages))
         return value
-    
+
     def create(self, validated_data: dict) -> User:
         return User.objects.create_user(**validated_data)
 

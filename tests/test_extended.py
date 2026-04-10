@@ -21,9 +21,7 @@ def future(days):
     return str(date.today() + timedelta(days=days))
 
 
-
 # UNIT TESTS -- model logic in isolation (no HTTP)
-
 
 
 @pytest.mark.django_db
@@ -110,9 +108,7 @@ class TestBookingModelUnit:
         assert str(user) == "test@example.com"
 
 
-
 # EDGE CASES -- boundary conditions and unusual inputs
-
 
 
 @pytest.mark.django_db
@@ -285,9 +281,7 @@ class TestRegistrationEdgeCases:
         assert r.status_code == 201
 
 
-
 # CONCURRENCY / RACE CONDITIONS
-
 
 
 @pytest.mark.django_db(transaction=True)
@@ -354,9 +348,7 @@ class TestBookingConcurrency:
         assert 204 in results
 
 
-
 # INVALID USER BEHAVIOUR
-
 
 
 @pytest.mark.django_db
@@ -441,9 +433,7 @@ class TestInvalidUserBehaviour:
         assert success_count == 5
 
 
-
 # END-TO-END FLOW TESTS
-
 
 
 @pytest.mark.django_db
