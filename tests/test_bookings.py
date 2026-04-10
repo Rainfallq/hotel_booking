@@ -130,7 +130,7 @@ class TestBookingCreate:
         assert r.status_code == 400
 
     def test_cancelled_booking_does_not_block_new_booking(self):
-        """Extra – A cancelled booking on the same dates should not cause """
+        """Extra – A cancelled booking on the same dates should not cause"""
         BookingFactory(
             user=self.user,
             room=self.room,
