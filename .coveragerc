@@ -8,6 +8,8 @@ omit =
     core/wsgi.py
     core/asgi.py
     venv/*
+    core/settings_test.py
+    */tests.py
 
 [report]
 show_missing = True

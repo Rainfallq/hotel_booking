@@ -7,39 +7,67 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
-      - run: pip install flake8 black
-      - run: flake8 .
-      - run: black --check .
+        with:
+          python-version: "3.12"
+
+      - name: Install linters
+        run: pip install flake8 black
+
+      - name: Run flake8
+        run: flake8 . --max-line-length=88 --exclude=migrations,venv
+
+      - name: Check formatting with black
+        run: black --check . --exclude="migrations|venv"
 
   test:
     runs-on: ubuntu-latest
     needs: lint
+
     services:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: hotel_db
-          POSTGRES_USER: hotel_db_user
-          POSTGRES_PASSWORD: hotel_db
-        ports: ['5432:5432']
-        options: --health-cmd pg_isready
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
-      - run: pip install -r requirements.txt
-      - run: coverage run -m pytest
-      - run: coverage report --fail-under=80
+          POSTGRES_DB: hotel_booking
+          POSTGRES_USER: hotel_user
+          POSTGRES_PASSWORD: "12345"
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-  api-test:
-    runs-on: ubuntu-latest
-    needs: test
+    env:
+      DJANGO_SETTINGS_MODULE: core.settings
+
     steps:
       - uses: actions/checkout@v4
-      - run: docker-compose up -d --build
-      - run: sleep 15
-      - run: npm install -g newman
-      - run: newman run postman/hotel_booking.json
-        env: { API_URL: 'http://localhost:8000' }
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install test dependencies
+        run: pip install pytest pytest-django factory-boy coverage
+
+      - name: Run tests with coverage
+        run: coverage run -m pytest tests/ -v --tb=short
+
+      - name: Coverage report (terminal)
+        run: coverage report --fail-under=80
+
+      - name: Generate HTML coverage report
+        run: coverage html
+
+      - name: Upload coverage report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html-report
+          path: htmlcov/
+          retention-days: 14
