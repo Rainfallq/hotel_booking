@@ -137,7 +137,7 @@ class TestBookingEdgeCases:
         assert r.status_code == 400
 
     def test_booking_one_day_stay_is_valid(self):
-        """TC-EDGE-02 -- Single-night stay (check_out = check_in + 1) must be accepted."""
+        """TC-EDGE-02 -- Single-night stay (check_out = check_in + 1)"""
         r = self.client.post(
             BOOKINGS_URL,
             {
@@ -150,7 +150,7 @@ class TestBookingEdgeCases:
         assert r.status_code == 201
 
     def test_booking_very_long_stay(self):
-        """TC-EDGE-03 -- A stay of 365 nights must be accepted (no upper bound enforced)."""
+        """TC-EDGE-03 -- A stay of 365 nights must be accepted"""
         r = self.client.post(
             BOOKINGS_URL,
             {
