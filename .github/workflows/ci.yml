@@ -3,6 +3,24 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install linters
+        run: pip install flake8 black
+
+      - name: Run flake8
+        run: flake8 . --max-line-length=88 --exclude=migrations,venv
+
+      - name: Check formatting with black
+        run: black --check . --exclude="migrations|venv"
+
   test:
     runs-on: ubuntu-latest
     needs: lint
