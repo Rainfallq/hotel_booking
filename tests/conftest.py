@@ -9,6 +9,7 @@ User = get_user_model()
 
 # ─── Factories ────────────────────────────────────────────────────────────────
 
+
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
@@ -41,6 +42,7 @@ class BookingFactory(factory.django.DjangoModelFactory):
 
 
 # ─── Fixtures ─────────────────────────────────────────────────────────────────
+
 
 @pytest.fixture
 def api_client():

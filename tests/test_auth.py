@@ -2,7 +2,6 @@ import pytest
 from rest_framework.test import APIClient
 from tests.conftest import UserFactory
 
-
 REGISTER_URL = "/api/auth/register/"
 LOGIN_URL = "/api/auth/login/"
 REFRESH_URL = "/api/auth/refresh/"

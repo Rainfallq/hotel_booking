@@ -43,7 +43,9 @@ class TestRoomList:
 
     def test_room_fields_present(self, db):
         """Room response must contain id, name, price_per_day, capacity."""
-        room = RoomFactory(name="Suite 101", price_per_day=Decimal("150.00"), capacity=2)
+        room = RoomFactory(
+            name="Suite 101", price_per_day=Decimal("150.00"), capacity=2
+        )
         r = self.client.get(room_detail_url(room.pk))
         assert "id" in r.data
         assert "name" in r.data
@@ -133,9 +135,13 @@ class TestRoomPriceFilter:
 
     @pytest.fixture(autouse=True)
     def setup_rooms(self, db):
-        self.cheap = RoomFactory(name="Cheap", price_per_day=Decimal("50.00"), capacity=1)
+        self.cheap = RoomFactory(
+            name="Cheap", price_per_day=Decimal("50.00"), capacity=1
+        )
         self.mid = RoomFactory(name="Mid", price_per_day=Decimal("150.00"), capacity=2)
-        self.expensive = RoomFactory(name="Expensive", price_per_day=Decimal("300.00"), capacity=3)
+        self.expensive = RoomFactory(
+            name="Expensive", price_per_day=Decimal("300.00"), capacity=3
+        )
 
     def test_min_price_filter(self):
         """TC22 – min_price excludes cheaper rooms."""
@@ -171,9 +177,15 @@ class TestRoomCapacityFilter:
 
     @pytest.fixture(autouse=True)
     def setup_rooms(self, db):
-        self.single = RoomFactory(name="Single", capacity=1, price_per_day=Decimal("80.00"))
-        self.double = RoomFactory(name="Double", capacity=2, price_per_day=Decimal("120.00"))
-        self.suite = RoomFactory(name="Suite", capacity=4, price_per_day=Decimal("250.00"))
+        self.single = RoomFactory(
+            name="Single", capacity=1, price_per_day=Decimal("80.00")
+        )
+        self.double = RoomFactory(
+            name="Double", capacity=2, price_per_day=Decimal("120.00")
+        )
+        self.suite = RoomFactory(
+            name="Suite", capacity=4, price_per_day=Decimal("250.00")
+        )
 
     def test_exact_capacity_filter(self):
         """TC23 – capacity=2 returns only rooms with exactly 2 guests."""

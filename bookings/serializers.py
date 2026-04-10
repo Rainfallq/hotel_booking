@@ -28,7 +28,7 @@ class BookingSerializer(serializers.ModelSerializer):
         if check_in >= check_out:
             raise serializers.ValidationError("Check out must be later than check in")
 
-        if check_in < date.today():
+        if check_in <= date.today():
             raise serializers.ValidationError("Check in cannot be in the past")
 
         conflict_bookings = Booking.objects.filter(

@@ -5,10 +5,10 @@ omit =
     tests/*
     manage.py
     core/settings.py
+    core/settings_test.py
     core/wsgi.py
     core/asgi.py
     venv/*
-    core/settings_test.py
     */tests.py
 
 [report]
