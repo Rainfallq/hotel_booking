@@ -74,8 +74,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "hotel_booking",
         "USER": "hotel_user",
-        "PASSWORD": "12345",
-        "HOST": "localhost",
+        "PASSWORD": "hotel_db",
+        "HOST": "db",
         "PORT": "5432",
     }
 }
